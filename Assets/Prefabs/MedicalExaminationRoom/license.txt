@@ -1,0 +1,11 @@
+Model Information:
+* title:	Medical Examination Room
+* source:	https://sketchfab.com/3d-models/medical-examination-room-107a137acfb243bea28c76daa7064670
+* author:	DotBow (https://sketchfab.com/DotBow)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Medical Examination Room" (https://sketchfab.com/3d-models/medical-examination-room-107a137acfb243bea28c76daa7064670) by DotBow (https://sketchfab.com/DotBow) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

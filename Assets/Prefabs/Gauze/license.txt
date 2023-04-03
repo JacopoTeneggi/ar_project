@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gauze 10x10cm
+* source:	https://sketchfab.com/3d-models/gauze-10x10cm-e6d2fa99b71b420e9b6533f960de7bc9
+* author:	Guardiano (https://sketchfab.com/guardiano)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gauze 10x10cm" (https://sketchfab.com/3d-models/gauze-10x10cm-e6d2fa99b71b420e9b6533f960de7bc9) by Guardiano (https://sketchfab.com/guardiano) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
