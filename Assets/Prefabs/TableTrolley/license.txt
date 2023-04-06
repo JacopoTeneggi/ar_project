@@ -1,0 +1,11 @@
+Model Information:
+* title:	Table Trolley
+* source:	https://sketchfab.com/3d-models/table-trolley-c5145783ca524e69a96d7868a004b508
+* author:	wang2dog (https://sketchfab.com/wang2dog)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Table Trolley" (https://sketchfab.com/3d-models/table-trolley-c5145783ca524e69a96d7868a004b508) by wang2dog (https://sketchfab.com/wang2dog) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
