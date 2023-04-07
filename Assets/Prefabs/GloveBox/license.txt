@@ -1,0 +1,11 @@
+Model Information:
+* title:	Nitrile Glove Box
+* source:	https://sketchfab.com/3d-models/nitrile-glove-box-1c755998fd374295a84c47357d763cab
+* author:	futuresdesignlab (https://sketchfab.com/avelizreyes)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Nitrile Glove Box" (https://sketchfab.com/3d-models/nitrile-glove-box-1c755998fd374295a84c47357d763cab) by futuresdesignlab (https://sketchfab.com/avelizreyes) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
