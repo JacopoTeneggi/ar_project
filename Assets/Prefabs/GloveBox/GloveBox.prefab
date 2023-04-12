@@ -976,6 +976,7 @@ GameObject:
   - component: {fileID: 711715998704603380}
   - component: {fileID: 1128071074550289046}
   - component: {fileID: 192682681047734966}
+  - component: {fileID: 2338757037030654332}
   m_Layer: 0
   m_Name: GloveBox
   m_TagString: Untagged
@@ -1057,7 +1058,7 @@ MonoBehaviour:
   hostTransform: {fileID: 1148813903464830850}
   manipulationType: 3
   twoHandedManipulationType: 7
-  allowFarManipulation: 0
+  allowFarManipulation: 1
   useForcesForNearManipulation: 0
   oneHandRotationModeNear: 1
   oneHandRotationModeFar: 1
@@ -1085,6 +1086,19 @@ MonoBehaviour:
   onHoverExited:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2338757037030654332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4851826005489493740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0e0ac1e25f947bfba4e2f01fa88e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isClicked: 0
 --- !u!1 &4908617425398816852
 GameObject:
   m_ObjectHideFlags: 0

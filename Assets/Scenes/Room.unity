@@ -958,7 +958,7 @@ GameObject:
   - component: {fileID: 1194097297}
   - component: {fileID: 1194097298}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -988,14 +988,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1194097295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb98861f626e42caa7752522b805fa8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e1b86cf410c743c0aba2cc8bcb8aa8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gauze: {fileID: 521287350}
-  tube: {fileID: 0}
-  catheter: {fileID: 0}
-  veinScanner: {fileID: 0}
-  tourniquet: {fileID: 0}
+  tourniquet: {fileID: 1584862489}
   gloveBox: {fileID: 1557233913}
 --- !u!1001 &1407874458
 PrefabInstance:
@@ -1004,6 +1000,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1557233914}
     m_Modifications:
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: onManipulationStarted.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: onManipulationStarted.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: onManipulationStarted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2123584743}
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: onManipulationStarted.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: onManipulationStarted.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: test
+      objectReference: {fileID: 0}
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: onManipulationStarted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GloveBoxController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: onManipulationStarted.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1148813903464830850, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1640,6 +1664,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 51.632, y: 0, z: 0}
+--- !u!114 &2123584743 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2338757037030654332, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+  m_PrefabInstance: {fileID: 1407874458}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0e0ac1e25f947bfba4e2f01fa88e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &69129148046360546
 GameObject:
   m_ObjectHideFlags: 0
