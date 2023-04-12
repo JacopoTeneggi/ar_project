@@ -13,11 +13,7 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        goals.Add(GetComponent<PutGlovesOn>());
-        Debug.Log(goals[0]);
-
-        currentGoal = goals[currentGoalIdx];
-        Debug.Log("Initialized");
+        currentGoal = GetComponent<Goal>();
         Debug.Log(currentGoal);
     }
     

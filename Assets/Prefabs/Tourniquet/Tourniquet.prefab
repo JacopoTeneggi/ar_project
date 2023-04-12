@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 1212742240590597773}
   - component: {fileID: 8264252803380127230}
   - component: {fileID: 4595023846246812483}
+  - component: {fileID: 7484399155994025352}
   m_Layer: 0
   m_Name: Tourniquet
   m_TagString: Tourniquet
@@ -192,7 +193,7 @@ MonoBehaviour:
   hostTransform: {fileID: 6672070994398942760}
   manipulationType: 3
   twoHandedManipulationType: 7
-  allowFarManipulation: 0
+  allowFarManipulation: 1
   useForcesForNearManipulation: 0
   oneHandRotationModeNear: 1
   oneHandRotationModeFar: 1
@@ -220,3 +221,16 @@ MonoBehaviour:
   onHoverExited:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7484399155994025352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6937969710167005005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174a72f87236b6942b51c351992a7861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collision_trolley: 0

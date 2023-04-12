@@ -11,14 +11,17 @@ public class TrolleyCollision : MonoBehaviour
         if (string.Equals(col.gameObject.tag, "Trolley"))
         {
             collision_trolley = 1;
+            Debug.Log(collision_trolley);
         }
     }
 
     void OnCollisionExit(Collision col)
     {
+        Debug.Log(col);
         if (string.Equals(col.gameObject.tag, "Trolley"))
         {
             collision_trolley = 0;
+            Debug.Log(collision_trolley);
         }
     }
 
