@@ -10,10 +10,21 @@ public class GameController : MonoBehaviour
     private List<Goal> goals = new List<Goal>();
     private int currentGoalIdx = 0;
     private Goal currentGoal;
+    private GatherMaterials currentGoal_test;
 
-    void Awake()
+    void Start()
     {
-        currentGoal = GetComponent<Goal>();
+        //currentGoal = GetComponent<Goal>();
+        currentGoal_test = new GatherMaterials(tourniquet);
+        PutGlovesOn gloves = new PutGlovesOn(gloveBox);
+        Debug.Log(currentGoal_test.val);
+        // Debug.Log(typeof(currentGoal_test));
+        currentGoal = currentGoal_test;
+        Debug.Log(currentGoal);
+        // Debug.Log(typeof(currentGoal));
+        goals.Add(currentGoal);
+        goals.Add(gloves);
+        currentGoal = goals[0];
         Debug.Log(currentGoal);
     }
     
@@ -26,7 +37,7 @@ public class GameController : MonoBehaviour
             Destroy(currentGoal);
             currentGoalIdx++;
         }
-    }
+    } 
 }
 
 public abstract class  Goal : MonoBehaviour
@@ -40,9 +51,11 @@ public class GatherMaterials : Goal
 {
     private GameObject tourniquet;
     private TrolleyCollision tourniquetCollide;
+    public int val = 10;
 
     public GatherMaterials(GameObject _tourniquet)
     {
+
         tourniquet = _tourniquet;
         tourniquetCollide = tourniquet.transform.GetChild(0).GetComponent<TrolleyCollision>();
     }
@@ -69,9 +82,9 @@ public class PutGlovesOn: Goal
     private GameObject gloveBox;
     private GloveBoxController gloveBoxController;
 
-    void Awake()
+    public PutGlovesOn(GameObject _glovebox)
     {
-        gloveBox = GameObject.Find("Tourniquet");
+        gloveBox = _glovebox;
         gloveBoxController = gloveBox.transform.GetChild(0).GetComponent<GloveBoxController>();
     }
 
