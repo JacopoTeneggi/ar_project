@@ -443,6 +443,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 521287351}
+  - component: {fileID: 521287352}
   m_Layer: 0
   m_Name: Gauze
   m_TagString: Untagged
@@ -468,6 +469,18 @@ Transform:
   m_Father: {fileID: 782628376}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &521287352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521287350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d550b0b504b48b49a30138a1becf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &600180963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -943,7 +956,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1194097297}
-  - component: {fileID: 1194097296}
+  - component: {fileID: 1194097298}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -951,18 +964,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1194097296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194097295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eaafde1bbe7f4df0b4e79fa7dfc2cdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1194097297
 Transform:
   m_ObjectHideFlags: 0
@@ -978,6 +979,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1194097298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194097295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb98861f626e42caa7752522b805fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gauze: {fileID: 521287350}
+  tube: {fileID: 0}
+  catheter: {fileID: 0}
+  veinScanner: {fileID: 0}
+  tourniquet: {fileID: 0}
+  gloveBox: {fileID: 1557233913}
 --- !u!1001 &1407874458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1264,7 +1283,7 @@ GameObject:
   - component: {fileID: 1557233914}
   m_Layer: 0
   m_Name: GloveBox
-  m_TagString: Untagged
+  m_TagString: GloveBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
