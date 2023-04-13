@@ -1,33 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
     public GameObject tourniquet;
     public GameObject gloveBox;
+    public TextMeshProUGUI instructions;
 
-    private List<Goal> goals = new List<Goal>();
-    private int currentGoalIdx = 0;
+    private List<Goal> goals;
+    private int currentGoalIdx;
     private Goal currentGoal;
-    private GatherMaterials currentGoal_test;
 
     void Start()
     {
-        //currentGoal = GetComponent<Goal>();
-        currentGoal_test = new GatherMaterials(tourniquet);
-        PutGlovesOn gloves = new PutGlovesOn(gloveBox);
-        Debug.Log(currentGoal_test.val);
-        // Debug.Log(typeof(currentGoal_test));
-        currentGoal = currentGoal_test;
-        Debug.Log(currentGoal);
-        // Debug.Log(typeof(currentGoal));
-        goals.Add(currentGoal);
-        goals.Add(gloves);
+        GatherMaterials gatherMaterials = new GatherMaterials(instructions, tourniquet);
+        PutGlovesOn putGlovesOn = new PutGlovesOn(instructions, gloveBox);
+
+        goals = new List<Goal>();
+        goals.Add(gatherMaterials);
+        goals.Add(putGlovesOn);
+
+        currentGoalIdx = 0;
         currentGoal = goals[0];
-        Debug.Log(currentGoal);
+        currentGoal.Activate();
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -37,11 +36,12 @@ public class GameController : MonoBehaviour
             Destroy(currentGoal);
             currentGoalIdx++;
         }
-    } 
+    }
 }
 
-public abstract class  Goal : MonoBehaviour
+public abstract class Goal : MonoBehaviour
 {
+    public abstract void Activate();
     public abstract bool IsAchieved();
     public abstract void Complete();
     public abstract void DrawHUD();
@@ -49,15 +49,21 @@ public abstract class  Goal : MonoBehaviour
 
 public class GatherMaterials : Goal
 {
+    private TextMeshProUGUI instructions;
     private GameObject tourniquet;
     private TrolleyCollision tourniquetCollide;
     public int val = 10;
 
-    public GatherMaterials(GameObject _tourniquet)
+    public GatherMaterials(TextMeshProUGUI _instructions, GameObject _tourniquet)
     {
-
+        instructions = _instructions;
         tourniquet = _tourniquet;
         tourniquetCollide = tourniquet.transform.GetChild(0).GetComponent<TrolleyCollision>();
+    }
+
+    public override void Activate()
+    {
+        instructions.text = "Next step: Move materials to the trolley";
     }
 
     public override bool IsAchieved()
@@ -77,15 +83,22 @@ public class GatherMaterials : Goal
 
 }
 
-public class PutGlovesOn: Goal
+public class PutGlovesOn : Goal
 {
+    private TextMeshProUGUI instructions;
     private GameObject gloveBox;
     private GloveBoxController gloveBoxController;
 
-    public PutGlovesOn(GameObject _glovebox)
+    public PutGlovesOn(TextMeshProUGUI _instructions, GameObject _glovebox)
     {
+        instructions = _instructions;
         gloveBox = _glovebox;
         gloveBoxController = gloveBox.transform.GetChild(0).GetComponent<GloveBoxController>();
+    }
+
+    public override void Activate()
+    {
+        instructions.text = "Next step: Put gloves on";
     }
 
     public override bool IsAchieved()

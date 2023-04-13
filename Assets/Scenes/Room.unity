@@ -1229,6 +1229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tourniquet: {fileID: 1584862489}
   gloveBox: {fileID: 1557233913}
+  instructions: {fileID: 365970904}
 --- !u!1001 &1407874458
 PrefabInstance:
   m_ObjectHideFlags: 0
