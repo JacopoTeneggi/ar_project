@@ -7,14 +7,18 @@ public class GameController : MonoBehaviour
     public GameObject tourniquet;
     public GameObject gloveBox;
 
-    private List<Goal> goals = new List<Goal>();
-    private int currentGoalIdx = 0;
+    private Goal[] goals;
+    private int currentGoalIdx;
     private Goal currentGoal;
 
-    void Awake()
+    void Start()
     {
-        currentGoal = GetComponent<Goal>();
-        Debug.Log(currentGoal);
+        goals = GetComponents<Goal>();
+        Debug.Log(goals.Length);
+        foreach (var goal in goals)
+        {
+            Debug.Log("for loop");
+        }
     }
     
     // Update is called once per frame
@@ -69,7 +73,7 @@ public class PutGlovesOn: Goal
     private GameObject gloveBox;
     private GloveBoxController gloveBoxController;
 
-    void Awake()
+    void Start()
     {
         gloveBox = GameObject.Find("Tourniquet");
         gloveBoxController = gloveBox.transform.GetChild(0).GetComponent<GloveBoxController>();
