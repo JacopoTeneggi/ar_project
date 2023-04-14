@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - GloveBox
+  - Gauze
+  - Tube
+  - Tourniquet
+  - Trolley
   layers:
   - Default
   - TransparentFX

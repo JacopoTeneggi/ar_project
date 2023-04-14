@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 294553957033265160}
   - component: {fileID: 5036933056697495857}
   - component: {fileID: 6220287546564555338}
+  - component: {fileID: 1996269305100226464}
   m_Layer: 0
   m_Name: TestTube
   m_TagString: Tube
@@ -246,7 +247,7 @@ MonoBehaviour:
   hostTransform: {fileID: 617221970589163505}
   manipulationType: 3
   twoHandedManipulationType: 7
-  allowFarManipulation: 0
+  allowFarManipulation: 1
   useForcesForNearManipulation: 0
   oneHandRotationModeNear: 1
   oneHandRotationModeFar: 1
@@ -303,6 +304,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1996269305100226464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879936911192915258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174a72f87236b6942b51c351992a7861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trolleyCollision: 0
 --- !u!1 &5831833022184766816
 GameObject:
   m_ObjectHideFlags: 0

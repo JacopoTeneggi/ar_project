@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 3052880459116649885}
   - component: {fileID: 2018214852590799255}
   - component: {fileID: 3140388499242399874}
+  - component: {fileID: 2552106835885702203}
   m_Layer: 0
   m_Name: Gauze
   m_TagString: Gauze
@@ -97,7 +98,7 @@ MonoBehaviour:
   hostTransform: {fileID: 7658300237207605826}
   manipulationType: 3
   twoHandedManipulationType: 7
-  allowFarManipulation: 0
+  allowFarManipulation: 1
   useForcesForNearManipulation: 0
   oneHandRotationModeNear: 1
   oneHandRotationModeFar: 1
@@ -154,6 +155,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.10323618, y: 0.005090153, z: 0.10321681}
   m_Center: {x: 0.00004001707, y: 0.0011332289, z: 0.000016100705}
+--- !u!114 &2552106835885702203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258460213332849715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174a72f87236b6942b51c351992a7861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trolleyCollision: 0
 --- !u!1 &7615137676777187090
 GameObject:
   m_ObjectHideFlags: 0

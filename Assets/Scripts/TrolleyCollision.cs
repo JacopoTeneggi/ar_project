@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class TrolleyCollision : MonoBehaviour
 {
-    public int collision_trolley = 0;
+    public int trolleyCollision = 0;
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter(Collision other)
     {
-        if (string.Equals(col.gameObject.tag, "Trolley"))
+        Debug.Log(other.gameObject.tag);
+        if (string.Equals(other.gameObject.tag, "Trolley"))
         {
-            collision_trolley = 1;
-            Debug.Log(collision_trolley);
+            trolleyCollision = 1;
+            Debug.Log(trolleyCollision);
         }
     }
 
-    void OnCollisionExit(Collision col)
+    void OnCollisionExit(Collision other)
     {
-        Debug.Log(col);
-        if (string.Equals(col.gameObject.tag, "Trolley"))
+        Debug.Log(other);
+        if (string.Equals(other.gameObject.tag, "Trolley"))
         {
-            collision_trolley = 0;
-            Debug.Log(collision_trolley);
+            trolleyCollision = 0;
+            Debug.Log(trolleyCollision);
         }
     }
 

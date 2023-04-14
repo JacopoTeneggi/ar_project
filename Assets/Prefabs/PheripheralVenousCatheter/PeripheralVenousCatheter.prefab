@@ -1080,6 +1080,7 @@ GameObject:
   - component: {fileID: 6878418288729981401}
   - component: {fileID: 4955396585014528364}
   - component: {fileID: 6921503036531629837}
+  - component: {fileID: 1217116754135295001}
   m_Layer: 0
   m_Name: PeripheralVenousCatheter
   m_TagString: Untagged
@@ -1145,7 +1146,7 @@ MonoBehaviour:
   hostTransform: {fileID: 1103899005354522408}
   manipulationType: 3
   twoHandedManipulationType: 7
-  allowFarManipulation: 0
+  allowFarManipulation: 1
   useForcesForNearManipulation: 0
   oneHandRotationModeNear: 1
   oneHandRotationModeFar: 1
@@ -1189,6 +1190,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1217116754135295001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8238920980931051020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174a72f87236b6942b51c351992a7861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trolleyCollision: 0
 --- !u!1 &8255530029770331019
 GameObject:
   m_ObjectHideFlags: 0
