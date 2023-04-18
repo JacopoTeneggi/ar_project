@@ -22,15 +22,24 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        //currentGoal = GetComponent<Goal>();
+        // Workflow:
+        // 1. gatherMaterials
+        // 2. swabArea
+        // 3. putGlovesOn
+        // 4. applyTourniquet
+        // 5. findVein
+        // 6. insertNeedle
+        // 7. removeNeedle & applyGauze
         GatherMaterials gatherMaterials = new GatherMaterials(instructions, tourniquet, scanner, gauze, needle, tube);
         PutGlovesOn putGlovesOn = new PutGlovesOn(gloveBox);
+        ApplyTourniquet applyTourniquet = new ApplyTourniquet(instructions, tourniquet);
 
         goals = new List<Goal>();
         goals.Add(gatherMaterials);
         goals.Add(putGlovesOn);
+        goals.Add(applyTourniquet);
 
-        currentGoalIdx = 0;
+        currentGoalIdx = 2;
         currentGoal = goals[currentGoalIdx];
         currentGoal.Activate();
     }
@@ -42,7 +51,7 @@ public class GameController : MonoBehaviour
         if (currentGoal.IsAchieved())
         {
             currentGoal.Complete();
-            Destroy(currentGoal);
+            //Destroy(currentGoal);
             currentGoalIdx++;
         }
         else
@@ -126,13 +135,49 @@ public class GatherMaterials : Goal
     {
         instructionsText.text = "Completed!";
     }
+}
 
-    //public override void DrawHUD()
-    //{
-    //    int obj = tourniquetCollide.collision_trolley + scannerCollide.collision_trolley + needleCollide.collision_trolley + tube1Collide.collision_trolley + tube2Collide.collision_trolley + tube3Collide.collision_trolley + Math.Max(Math.Max(gauze1Collide.collision_trolley, gauze2Collide.collision_trolley), gauze3Collide.collision_trolley);
-    //    int required_obj = 7;
-    //    GUILayout.Label(string.Format("Gathered {0}/{1} materials", obj, required_obj));
-    //}
+public class ApplyTourniquet: Goal
+{
+    private GameObject instructions;
+    private TextMesh instructionsText;
+
+    private GameObject tourniquet;
+    private TourniquetController tourniquetController;
+    private GameObject pointOfInterest;
+
+    public ApplyTourniquet(GameObject _instructions, GameObject _tourniquet)
+    {
+        instructions = _instructions;
+        instructionsText = instructions.GetComponent<TextMesh>();
+
+        tourniquet = _tourniquet;
+
+        tourniquetController = tourniquet.transform.GetChild(0).GetComponent<TourniquetController>();
+
+        pointOfInterest = tourniquet.transform.GetChild(1).gameObject;
+        pointOfInterest.SetActive(false);
+    }
+
+    public override void Activate()
+    {
+        instructionsText.text = "Apply the tourniquet to the arm \nby moving it towards \nthe rotating diamond";
+        pointOfInterest.SetActive(true);
+    }
+
+    public override void Continue()
+    {
+    }
+
+    public override bool IsAchieved()
+    {
+        return tourniquetController.isApplied;
+    }
+
+    public override void Complete()
+    {
+        instructionsText.text = "Completed!";
+    }
 
 }
 

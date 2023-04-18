@@ -8,21 +8,17 @@ public class TrolleyCollision : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject.tag);
         if (string.Equals(other.gameObject.tag, "Trolley"))
         {
             trolleyCollision = 1;
-            Debug.Log(trolleyCollision);
         }
     }
 
     void OnCollisionExit(Collision other)
     {
-        Debug.Log(other);
         if (string.Equals(other.gameObject.tag, "Trolley"))
         {
             trolleyCollision = 0;
-            Debug.Log(trolleyCollision);
         }
     }
 
