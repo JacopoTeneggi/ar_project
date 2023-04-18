@@ -9,6 +9,7 @@ TagManager:
   - Tube
   - Tourniquet
   - Trolley
+  - TourniquetPointOfInterest
   layers:
   - Default
   - TransparentFX

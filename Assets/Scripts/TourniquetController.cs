@@ -31,5 +31,12 @@ public class TourniquetController : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit(Collision other)
+    {
+        if (string.Equals(other.gameObject.tag, "TourniquetPointOfInterest"))
+        {
+            FlipApplication();
+        }
+    }
 
 }

@@ -8,6 +8,7 @@ using System;
 public class GameController : MonoBehaviour
 {
     public GameObject instructions;
+    private TextMesh instructionsText;
 
     public GameObject tourniquet;
     public GameObject gloveBox;
@@ -22,6 +23,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        instructionsText = instructions.GetComponent<TextMesh>();
         // Workflow:
         // 1. gatherMaterials
         // 2. swabArea
@@ -51,6 +53,7 @@ public class GameController : MonoBehaviour
         if (currentGoal.IsAchieved())
         {
             currentGoal.Complete();
+            instructionsText.text = "Completed!";
             //Destroy(currentGoal);
             currentGoalIdx++;
         }
@@ -167,6 +170,8 @@ public class ApplyTourniquet: Goal
 
     public override void Continue()
     {
+        instructionsText.text = "Apply the tourniquet to the arm \nby moving it towards \nthe rotating diamond";
+        pointOfInterest.SetActive(true);
     }
 
     public override bool IsAchieved()
@@ -176,7 +181,9 @@ public class ApplyTourniquet: Goal
 
     public override void Complete()
     {
-        instructionsText.text = "Completed!";
+        pointOfInterest.SetActive(false);
+        tourniquet.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0.4362f, 0.1115f, -1.0087f);
+        tourniquet.transform.GetChild(0).gameObject.transform.eulerAngles = new Vector3(0f, 0f, 90f);
     }
 
 }
