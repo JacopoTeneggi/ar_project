@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -167,9 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2d3ff93ff48bd40ab5bca3cf4e6d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wit: {fileID: 737401905}
+  Voice: {fileID: 737401905}
+  ValidateEarly: 0
   intent: wit$pause_timer
-  confidence: 0.6
+  confidenceThreshold: 0.6
   onIntentTriggered:
     m_PersistentCalls:
       m_Calls:
@@ -316,9 +317,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2d3ff93ff48bd40ab5bca3cf4e6d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wit: {fileID: 737401905}
+  Voice: {fileID: 737401905}
+  ValidateEarly: 0
   intent: wit$create_timer
-  confidence: 0.9
+  confidenceThreshold: 0.9
   onIntentTriggered:
     m_PersistentCalls:
       m_Calls:
@@ -380,7 +382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591c3d6f017c11b4faa41506d75635b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wit: {fileID: 737401905}
+  Voice: {fileID: 737401905}
+  ValidateEarly: 0
   intent: wit$subtract_time_timer
   confidenceThreshold: 0.6
   valueMatchers:
@@ -391,6 +394,7 @@ MonoBehaviour:
     comparisonMethod: 0
     matchValue: 
     floatingPointComparisonTolerance: 0.00009999999747378752
+    allowConfidenceOverlap: 0
     confidenceRanges: []
   - path: entities.wit$duration:duration[0].unit
     witValueReference: {fileID: 0}
@@ -399,6 +403,7 @@ MonoBehaviour:
     comparisonMethod: 0
     matchValue: 
     floatingPointComparisonTolerance: 0.00009999999747378752
+    allowConfidenceOverlap: 0
     confidenceRanges: []
   formattedValueEvents: []
   onMultiValueEvent:
@@ -685,9 +690,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2d3ff93ff48bd40ab5bca3cf4e6d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wit: {fileID: 737401905}
+  Voice: {fileID: 737401905}
+  ValidateEarly: 0
   intent: wit$resume_timer
-  confidence: 0.6
+  confidenceThreshold: 0.6
   onIntentTriggered:
     m_PersistentCalls:
       m_Calls:
@@ -749,7 +755,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591c3d6f017c11b4faa41506d75635b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wit: {fileID: 737401905}
+  Voice: {fileID: 737401905}
+  ValidateEarly: 0
   intent: wit$create_timer
   confidenceThreshold: 0.6
   valueMatchers:
@@ -760,6 +767,7 @@ MonoBehaviour:
     comparisonMethod: 0
     matchValue: 
     floatingPointComparisonTolerance: 0.00009999999747378752
+    allowConfidenceOverlap: 0
     confidenceRanges: []
   - path: entities.wit$duration:duration[0].unit
     witValueReference: {fileID: 0}
@@ -768,6 +776,7 @@ MonoBehaviour:
     comparisonMethod: 0
     matchValue: 
     floatingPointComparisonTolerance: 0.00009999999747378752
+    allowConfidenceOverlap: 0
     confidenceRanges: []
   formattedValueEvents: []
   onMultiValueEvent:
@@ -1250,7 +1259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591c3d6f017c11b4faa41506d75635b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wit: {fileID: 737401905}
+  Voice: {fileID: 737401905}
+  ValidateEarly: 0
   intent: wit$add_time_timer
   confidenceThreshold: 0.6
   valueMatchers:
@@ -1261,6 +1271,7 @@ MonoBehaviour:
     comparisonMethod: 0
     matchValue: 
     floatingPointComparisonTolerance: 0.00009999999747378752
+    allowConfidenceOverlap: 0
     confidenceRanges: []
   - path: entities.wit$duration:duration[0].unit
     witValueReference: {fileID: 0}
@@ -1269,6 +1280,7 @@ MonoBehaviour:
     comparisonMethod: 0
     matchValue: 
     floatingPointComparisonTolerance: 0.00009999999747378752
+    allowConfidenceOverlap: 0
     confidenceRanges: []
   formattedValueEvents: []
   onMultiValueEvent:
@@ -1703,9 +1715,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2d3ff93ff48bd40ab5bca3cf4e6d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wit: {fileID: 737401905}
+  Voice: {fileID: 737401905}
+  ValidateEarly: 0
   intent: wit$delete_timer
-  confidence: 0.6
+  confidenceThreshold: 0.6
   onIntentTriggered:
     m_PersistentCalls:
       m_Calls:

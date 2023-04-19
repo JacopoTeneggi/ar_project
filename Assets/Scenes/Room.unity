@@ -220,7 +220,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1156,15 +1156,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 1557233914}
     m_Modifications:
     - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
       propertyPath: manipulationType
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
-      propertyPath: allowFarManipulation
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
@@ -1267,8 +1259,7 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
 --- !u!4 &1407874459 stripped
 Transform:
@@ -1684,6 +1675,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932458449}
   - component: {fileID: 1932458448}
+  - component: {fileID: 1932458450}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1768,6 +1760,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 51.632, y: 0, z: 0}
+--- !u!114 &1932458450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932458447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!114 &2123584743 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2338757037030654332, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
@@ -3917,7 +3929,7 @@ GameObject:
   - component: {fileID: 5390862385848429745}
   - component: {fileID: 702106739188509131}
   - component: {fileID: 7220253332159863664}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Veins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4450,7 +4462,7 @@ GameObject:
   - component: {fileID: 337616721487687122}
   - component: {fileID: 6434955066512827851}
   - component: {fileID: 8979305412029357081}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArmWithVeins
   m_TagString: Untagged
   m_Icon: {fileID: 0}

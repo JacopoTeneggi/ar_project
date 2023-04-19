@@ -269,7 +269,7 @@ public class FindVein: Goal
 
     public override bool IsAchieved()
     {
-
+        return false;
     }
 
     public override void Complete()
