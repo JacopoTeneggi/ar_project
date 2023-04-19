@@ -20,7 +20,9 @@ public class GameController : MonoBehaviour
     private List<Goal> goals;
     private int currentGoalIdx;
     private Goal currentGoal;
+    private bool isCompleting;
 
+    // Start is called before the first frame update
     void Start()
     {
         instructionsText = instructions.GetComponent<TextMesh>();
@@ -33,7 +35,7 @@ public class GameController : MonoBehaviour
         // 6. insertNeedle
         // 7. removeNeedle & applyGauze
         GatherMaterials gatherMaterials = new GatherMaterials(instructions, tourniquet, scanner, gauze, needle, tube);
-        PutGlovesOn putGlovesOn = new PutGlovesOn(gloveBox);
+        PutGlovesOn putGlovesOn = new PutGlovesOn(instructions, gloveBox);
         ApplyTourniquet applyTourniquet = new ApplyTourniquet(instructions, tourniquet);
 
         goals = new List<Goal>();
@@ -41,21 +43,34 @@ public class GameController : MonoBehaviour
         goals.Add(putGlovesOn);
         goals.Add(applyTourniquet);
 
-        currentGoalIdx = 2;
+        currentGoalIdx = 1;
         currentGoal = goals[currentGoalIdx];
+        isCompleting = false;
         currentGoal.Activate();
     }
-    
+
+    IEnumerator CompleteGoal()
+    {
+        currentGoal.Complete();
+        instructionsText.text = "Completed!";
+        yield return new WaitForSecondsRealtime(1);
+        currentGoalIdx++;
+        Debug.Log(currentGoalIdx);
+        currentGoal = goals[currentGoalIdx];
+        isCompleting = false;
+        currentGoal.Activate();
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (currentGoal.IsAchieved())
         {
-            currentGoal.Complete();
-            instructionsText.text = "Completed!";
-            //Destroy(currentGoal);
-            currentGoalIdx++;
+            if (!isCompleting)
+            {
+                isCompleting = true;
+                StartCoroutine(CompleteGoal());
+            }
         }
         else
         {
@@ -136,7 +151,46 @@ public class GatherMaterials : Goal
 
     public override void Complete()
     {
-        instructionsText.text = "Completed!";
+
+    }
+}
+
+public class PutGlovesOn : Goal
+{
+    private GameObject instructions;
+    private TextMesh instructionsText;
+
+    private GameObject gloveBox;
+    private GloveBoxController gloveBoxController;
+
+    public PutGlovesOn(GameObject _instructions, GameObject _glovebox)
+    {
+        instructions = _instructions;
+        instructionsText = instructions.GetComponent<TextMesh>();
+
+        gloveBox = _glovebox;
+        gloveBoxController = gloveBox.transform.GetChild(0).GetComponent<GloveBoxController>();
+    }
+
+    public override void Activate()
+    {
+        instructionsText.text = "Put gloves on by clicking \non the glove box";
+    }
+
+    public override void Continue()
+    {
+        
+    }
+
+    public override bool IsAchieved()
+    {
+
+        return gloveBoxController.isClicked;
+    }
+
+    public override void Complete()
+    {
+        
     }
 }
 
@@ -188,35 +242,38 @@ public class ApplyTourniquet: Goal
 
 }
 
-public class PutGlovesOn: Goal
+public class FindVein: Goal
 {
-    private GameObject gloveBox;
-    private GloveBoxController gloveBoxController;
+    private GameObject instructions;
+    private TextMesh instructionsText;
 
-    public PutGlovesOn(GameObject _glovebox)
+    private GameObject veinScanner;
+
+    public FindVein(GameObject _instructions, GameObject _veinScanner)
     {
-        gloveBox = _glovebox;
-        gloveBoxController = gloveBox.transform.GetChild(0).GetComponent<GloveBoxController>();
+        instructions = _instructions;
+        instructionsText = instructions.GetComponent<TextMesh>();
+
+        veinScanner = _veinScanner;
     }
 
     public override void Activate()
     {
-        throw new NotImplementedException();
+
     }
 
     public override void Continue()
     {
-        throw new NotImplementedException();
+
     }
 
     public override bool IsAchieved()
     {
 
-        return gloveBoxController.isClicked;
     }
 
     public override void Complete()
     {
-        throw new NotImplementedException();
+
     }
 }

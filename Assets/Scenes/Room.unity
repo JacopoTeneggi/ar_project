@@ -1156,6 +1156,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 1557233914}
     m_Modifications:
     - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: manipulationType
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: allowFarManipulation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
       propertyPath: onManipulationStarted.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1182,6 +1194,10 @@ PrefabInstance:
     - target: {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
       propertyPath: onManipulationStarted.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1128071074550289046, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: autoConstraintSelection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1148813903464830850, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
       propertyPath: m_RootOrder
@@ -1247,7 +1263,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GloveBox
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7323689233817379990, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 192682681047734966, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1d3987644052a490b81455bdd47aa749, type: 3}
 --- !u!4 &1407874459 stripped
 Transform:
