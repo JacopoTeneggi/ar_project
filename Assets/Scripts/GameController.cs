@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
     public GameObject tourniquet;
     public GameObject gloveBox;
     public GameObject needle;
-    public GameObject scanner;
+    public GameObject veinScanner;
     public GameObject gauze;
     public GameObject tube;
 
@@ -34,14 +34,16 @@ public class GameController : MonoBehaviour
         // 5. findVein
         // 6. insertNeedle
         // 7. removeNeedle & applyGauze
-        GatherMaterials gatherMaterials = new GatherMaterials(instructions, tourniquet, scanner, gauze, needle, tube);
+        GatherMaterials gatherMaterials = new GatherMaterials(instructions, tourniquet, veinScanner, gauze, needle, tube);
         PutGlovesOn putGlovesOn = new PutGlovesOn(instructions, gloveBox);
         ApplyTourniquet applyTourniquet = new ApplyTourniquet(instructions, tourniquet);
+        FindVein findVein = new FindVein(instructions, veinScanner);
 
         goals = new List<Goal>();
         goals.Add(gatherMaterials);
         goals.Add(putGlovesOn);
         goals.Add(applyTourniquet);
+        goals.Add(findVein);
 
         currentGoalIdx = 1;
         currentGoal = goals[currentGoalIdx];
@@ -55,7 +57,6 @@ public class GameController : MonoBehaviour
         instructionsText.text = "Completed!";
         yield return new WaitForSecondsRealtime(1);
         currentGoalIdx++;
-        Debug.Log(currentGoalIdx);
         currentGoal = goals[currentGoalIdx];
         isCompleting = false;
         currentGoal.Activate();
@@ -236,8 +237,6 @@ public class ApplyTourniquet: Goal
     public override void Complete()
     {
         pointOfInterest.SetActive(false);
-        tourniquet.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0.4362f, 0.1115f, -1.0087f);
-        tourniquet.transform.GetChild(0).gameObject.transform.eulerAngles = new Vector3(0f, 0f, 90f);
     }
 
 }
@@ -248,6 +247,8 @@ public class FindVein: Goal
     private TextMesh instructionsText;
 
     private GameObject veinScanner;
+    private VeinScannerController veinScannerController;
+    private GameObject pointOfInterest;
 
     public FindVein(GameObject _instructions, GameObject _veinScanner)
     {
@@ -255,25 +256,32 @@ public class FindVein: Goal
         instructionsText = instructions.GetComponent<TextMesh>();
 
         veinScanner = _veinScanner;
+
+        veinScannerController = veinScanner.transform.GetChild(0).GetComponent<VeinScannerController>();
+
+        pointOfInterest = veinScanner.transform.GetChild(1).gameObject;
+        pointOfInterest.SetActive(false);
     }
 
     public override void Activate()
     {
-
+        instructionsText.text = "Grab the vein scanner and\nfind the correct vein.\nKeep the vein in the screen\nfor at least 5 second\nto complete the task";
+        pointOfInterest.SetActive(true);
     }
 
     public override void Continue()
     {
-
+        instructionsText.text = "Grab the vein scanner and\nfind the correct vein.\nKeep the vein in the screen\nfor at least 5 second\nto complete the task";
+        pointOfInterest.SetActive(true);
     }
 
     public override bool IsAchieved()
     {
-        return false;
+        return veinScannerController.foundVein;
     }
 
     public override void Complete()
     {
-
+        pointOfInterest.SetActive(false);
     }
 }

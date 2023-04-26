@@ -15,27 +15,26 @@ public class TourniquetController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isApplied)
+        {
+            transform.localPosition = new Vector3(0.4362f, 0.1115f, -1.0087f);
+            transform.rotation = Quaternion.Euler(0.0f, -90.0f, 90.0f);
+        }    
     }
-
-    private void FlipApplication()
-    {
-        isApplied = !isApplied;
-    }
-
+ 
     void OnCollisionEnter(Collision other)
     {
         if (string.Equals(other.gameObject.tag, "TourniquetPointOfInterest"))
         {
-            FlipApplication();
+            isApplied = true;
         }
     }
 
-    private void OnCollisionExit(Collision other)
+    void OnCollisionExit(Collision other)
     {
         if (string.Equals(other.gameObject.tag, "TourniquetPointOfInterest"))
         {
-            FlipApplication();
+            isApplied = false;
         }
     }
 

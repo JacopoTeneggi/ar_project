@@ -11,6 +11,8 @@ TagManager:
   - Trolley
   - TourniquetPointOfInterest
   - SamplesInfoPanel
+  - Arm
+  - VeinScannerPointOfInterest
   layers:
   - Default
   - TransparentFX
