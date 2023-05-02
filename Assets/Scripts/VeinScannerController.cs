@@ -65,6 +65,10 @@ public class VeinScannerController : MonoBehaviour, IMixedRealityInputHandler
             if (collisionTime >= 5)
             {
                 foundVein = true;
+                isClicked = false;
+
+                transform.position = new Vector3(0f, 0f, 0f);
+                transform.eulerAngles = new Vector3(0f, 0f, 0f);
             }
         }
         else

@@ -38,12 +38,14 @@ public class GameController : MonoBehaviour
         PutGlovesOn putGlovesOn = new PutGlovesOn(instructions, gloveBox);
         ApplyTourniquet applyTourniquet = new ApplyTourniquet(instructions, tourniquet);
         FindVein findVein = new FindVein(instructions, veinScanner);
+        InsertNeedle insertNeedle = new InsertNeedle(instructions, needle);
 
         goals = new List<Goal>();
         goals.Add(gatherMaterials);
         goals.Add(putGlovesOn);
         goals.Add(applyTourniquet);
         goals.Add(findVein);
+        goals.Add(insertNeedle);
 
         currentGoalIdx = 1;
         currentGoal = goals[currentGoalIdx];
@@ -283,5 +285,46 @@ public class FindVein: Goal
     public override void Complete()
     {
         pointOfInterest.SetActive(false);
+    }
+}
+
+public class InsertNeedle: Goal
+{
+    private GameObject instructions;
+    private TextMesh instructionsText;
+
+    private GameObject needle;
+    private GameObject pointOfInterest;
+
+    public InsertNeedle(GameObject _instructions, GameObject _needle)
+    {
+        instructions = _instructions;
+        instructionsText = instructions.GetComponent<TextMesh>();
+
+        needle = _needle;
+
+        pointOfInterest = _needle.transform.GetChild(1).gameObject;
+        pointOfInterest.SetActive(false);
+    }
+    public override void Activate()
+    {
+        instructionsText.text = "Now insert the needle in the vein";
+        pointOfInterest.SetActive(true);
+    }
+
+    public override void Continue()
+    {
+        instructionsText.text = "Now insert the needle in the vein";
+        pointOfInterest.SetActive(true);
+    }
+
+    public override bool IsAchieved()
+    {
+        return false;
+    }
+
+    public override void Complete()
+    {
+        
     }
 }
