@@ -17,7 +17,6 @@ public class VeinScannerController : MonoBehaviour, IMixedRealityInputHandler
 
     public void OnInputDown(InputEventData eventData)
     {
-        Debug.Log("down");
         IMixedRealityInputSource inputSource = eventData.InputSource;
         Handedness handedness = eventData.Handedness;
 

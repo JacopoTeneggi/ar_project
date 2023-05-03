@@ -21,7 +21,6 @@ public class VeinScannerScreenController : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log("collision enter" + other.gameObject.tag);
         if (string.Equals(other.gameObject.tag, "Arm"))
         {
             veinScannerScreen.SetActive(true);
