@@ -387,6 +387,9 @@ public class InsertNeedle: Goal
         {
             if (!needleController.needlePointController.isInVein)
             {
+                needle.transform.GetChild(0).transform.localPosition = new Vector3(1364f, 162f, -1468);
+                needle.transform.GetChild(0).transform.localEulerAngles = new Vector3(0f, -90f, 0f);
+
                 if (tryAgainMessageTime < 1f)
                 {
                     instructionsText.text = "Attempt failed. Try again";
