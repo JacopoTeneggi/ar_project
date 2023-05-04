@@ -4,9 +4,15 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using Microsoft.MixedReality.Toolkit.Input;
+using Microsoft.MixedReality.Toolkit.UI;
+using Microsoft.MixedReality.Toolkit.Utilities;
+using Microsoft.MixedReality.Toolkit;
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, IMixedRealityInputHandler
 {
+    private bool isStarted;
+    private bool isFinished;
     public GameObject instructions;
     private TextMesh instructionsText;
 
@@ -23,25 +29,49 @@ public class GameController : MonoBehaviour
     private Goal currentGoal;
     private bool isCompleting;
 
+    public void OnInputDown(InputEventData eventData)
+    {
+        isStarted = true;
+        CoreServices.InputSystem?.UnregisterHandler<IMixedRealityInputHandler>(this);
+
+        currentGoalIdx = 1;
+        currentGoal = goals[currentGoalIdx];
+        isCompleting = false;
+        currentGoal.Activate();
+    }
+
+    public void OnInputUp(InputEventData eventData)
+    {
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         instructionsText = instructions.GetComponent<TextMesh>();
+        instructionsText.text = "Welcome to the VR phlebotomy\nsimulator!\nWhen you are ready, press any\nkey to start training";
+
+        isStarted = false;
+        isFinished = false;
+        CoreServices.InputSystem?.RegisterHandler<IMixedRealityInputHandler>(this);
+
         // Workflow:
-        // 0. gatherMaterials
-        // 1. swabArea
-        // 2. putGlovesOn
-        // 3. applyTourniquet
-        // 4. findVein
-        // 5. insertNeedle
-        // 6. drawBlood
-        // 7. removeNeedle & applyGauze
+        // 1. gatherMaterials
+        // 2. swabArea
+        // 3. putGlovesOn
+        // 4. applyTourniquet
+        // 5. findVein
+        // 6. insertNeedle
+        // 7. drawBlood
+        // 8. removeNeedle & applyGauze
+        // 9. complete
         GatherMaterials gatherMaterials = new GatherMaterials(instructions, tourniquet, veinScanner, gauze, needle, tube);
         PutGlovesOn putGlovesOn = new PutGlovesOn(instructions, gloveBox);
         ApplyTourniquet applyTourniquet = new ApplyTourniquet(instructions, tourniquet);
         FindVein findVein = new FindVein(instructions, veinScanner);
         InsertNeedle insertNeedle = new InsertNeedle(instructions, needle, veins);
         DrawBlood drawBlood = new DrawBlood(instructions, needle, tube);
+        ExtractNeedle extractNeedle = new ExtractNeedle(instructions, needle, gauze);
 
         goals = new List<Goal>();
         goals.Add(gatherMaterials);
@@ -50,11 +80,7 @@ public class GameController : MonoBehaviour
         goals.Add(findVein);
         goals.Add(insertNeedle);
         goals.Add(drawBlood);
-
-        currentGoalIdx = 3;
-        currentGoal = goals[currentGoalIdx];
-        isCompleting = false;
-        currentGoal.Activate();
+        goals.Add(extractNeedle);
     }
 
     IEnumerator CompleteGoal()
@@ -63,25 +89,39 @@ public class GameController : MonoBehaviour
         instructionsText.text = "Completed!";
         yield return new WaitForSecondsRealtime(1);
         currentGoalIdx++;
-        currentGoal = goals[currentGoalIdx];
-        isCompleting = false;
-        currentGoal.Activate();
+        if (currentGoalIdx + 1 < goals.Count)
+        {
+            currentGoal = goals[currentGoalIdx];
+            isCompleting = false;
+            currentGoal.Activate();
+        }
+        else
+        {
+            isFinished = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentGoal.IsAchieved())
+        if (isStarted)
         {
-            if (!isCompleting)
+            if (currentGoal.IsAchieved())
             {
-                isCompleting = true;
-                StartCoroutine(CompleteGoal());
+                if (!isCompleting)
+                {
+                    isCompleting = true;
+                    StartCoroutine(CompleteGoal());
+                }
+            }
+            else
+            {
+                currentGoal.Continue();
             }
         }
-        else
+        if (isFinished)
         {
-            currentGoal.Continue();
+            instructionsText.text = "Congratulations!\nYou have completed the\ntraining simulation";
         }
     } 
 }
@@ -399,7 +439,7 @@ public class DrawBlood : Goal
     private NeedleController needleController;
 
     private GameObject tube;
-    private int numberOfFilledTubes = 0;
+    private int numberOfFilledTubes;
 
     public DrawBlood(GameObject _instructions, GameObject _needle, GameObject _tube)
     {
@@ -438,5 +478,65 @@ public class DrawBlood : Goal
     public override void Complete()
     {
         needleController.tubeAttachment.SetActive(false);
+    }
+}
+
+public class ExtractNeedle : Goal
+{
+    private GameObject instructions;
+    private TextMesh instructionsText;
+
+    private GameObject needle;
+    private NeedleController needleController;
+
+    private GameObject gauze;
+    private GameObject pointOfInterest;
+    private int numberOfGauzeApplied;
+
+    public ExtractNeedle(GameObject _instructions, GameObject _needle, GameObject _gauze)
+    {
+        instructions = _instructions;
+        instructionsText = instructions.GetComponent<TextMesh>();
+
+        needle = _needle;
+        needleController = needle.transform.GetChild(0).GetComponent<NeedleController>();
+        needleController.toExtract = false;
+
+        gauze = _gauze;
+        pointOfInterest = gauze.transform.GetChild(3).gameObject;
+        numberOfGauzeApplied = 0;
+        pointOfInterest.SetActive(false);
+    }
+
+    public override void Activate()
+    {
+        instructionsText.text = "Extract the needle from the\nvein and apply gauze";
+        needleController.toExtract = true;
+    }
+
+    public override void Continue()
+    {
+        if (needleController.toExtract && !needleController.needlePointController.isInVein)
+        {
+            needleController.toExtract = false;
+            pointOfInterest.SetActive(true);
+        }
+        if (!needleController.toExtract)
+        {
+            int gauze1Applied = gauze.transform.GetChild(0).GetComponent<GauzeController>().isApplied ? 1 : 0;
+            int gauze2Applied = gauze.transform.GetChild(1).GetComponent<GauzeController>().isApplied ? 1 : 0;
+            int gauze3Applied = gauze.transform.GetChild(2).GetComponent<GauzeController>().isApplied ? 1 : 0;
+            numberOfGauzeApplied = gauze1Applied + gauze2Applied + gauze3Applied;
+        }
+    }
+
+    public override bool IsAchieved()
+    {
+        return (numberOfGauzeApplied >= 1);
+    }
+
+    public override void Complete()
+    {
+        pointOfInterest.SetActive(false);
     }
 }

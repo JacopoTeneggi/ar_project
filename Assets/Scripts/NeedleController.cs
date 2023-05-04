@@ -13,10 +13,11 @@ public class NeedleController : MonoBehaviour, IMixedRealityInputHandler
 
     private IMixedRealityController controller;
     public bool isClicked;
+    public bool toExtract;
 
     public void OnInputDown(InputEventData eventData)
     {
-        if (!isClicked && !needlePointController.isInVein)
+        if ((!isClicked && !needlePointController.isInVein) || (!isClicked && toExtract))
         {
             IMixedRealityInputSource inputSource = eventData.InputSource;
             Handedness handedness = eventData.Handedness;
