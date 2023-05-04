@@ -37,9 +37,6 @@ public class VeinScannerController : MonoBehaviour, IMixedRealityInputHandler
     {
         isClicked = false;
         CoreServices.InputSystem?.UnregisterHandler<IMixedRealityInputHandler>(this);
-
-        transform.localPosition = new Vector3(0f, 0f, 0f);
-        transform.localEulerAngles = new Vector3(0f, 180f, 0f);
     }
 
     // Start is called before the first frame update

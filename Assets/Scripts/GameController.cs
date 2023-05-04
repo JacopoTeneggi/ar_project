@@ -425,7 +425,6 @@ public class InsertNeedle: Goal
 
     public override void Complete()
     {
-        targetVein.SetActive(false);
         targetPath.SetActive(false);
     }
 }

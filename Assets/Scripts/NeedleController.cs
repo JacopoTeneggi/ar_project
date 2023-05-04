@@ -38,12 +38,6 @@ public class NeedleController : MonoBehaviour, IMixedRealityInputHandler
     {
         isClicked = false;
         CoreServices.InputSystem?.UnregisterHandler<IMixedRealityInputHandler>(this);
-
-        if (!needlePointController.isInVein)
-        {
-            transform.localPosition = new Vector3(0f, 0f, 0f);
-            transform.localEulerAngles = new Vector3(0f, 180f, 0f);
-        }
     }
 
     // Start is called before the first frame update

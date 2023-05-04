@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrolleyCollision : MonoBehaviour
 {
-    public int trolleyCollision = 0;
+    public int trolleyCollision;
 
     void OnCollisionEnter(Collision other)
     {
@@ -25,7 +25,7 @@ public class TrolleyCollision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        trolleyCollision = 0;
     }
 
     // Update is called once per frame
