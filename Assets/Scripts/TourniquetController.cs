@@ -18,7 +18,7 @@ public class TourniquetController : MonoBehaviour
         if (isApplied)
         {
             transform.localPosition = new Vector3(0.4362f, 0.1115f, -1.0087f);
-            transform.rotation = Quaternion.Euler(0.0f, -90.0f, 90.0f);
+            transform.localEulerAngles = new Vector3(0.0f, 0f, 90.0f);
         }    
     }
  

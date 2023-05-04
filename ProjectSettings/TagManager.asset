@@ -13,6 +13,7 @@ TagManager:
   - SamplesInfoPanel
   - Arm
   - VeinScannerPointOfInterest
+  - TargetVein
   layers:
   - Default
   - TransparentFX

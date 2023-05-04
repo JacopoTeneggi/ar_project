@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     public GameObject veinScanner;
     public GameObject gauze;
     public GameObject tube;
+    public GameObject veins;
 
     private List<Goal> goals;
     private int currentGoalIdx;
@@ -27,18 +28,20 @@ public class GameController : MonoBehaviour
     {
         instructionsText = instructions.GetComponent<TextMesh>();
         // Workflow:
-        // 1. gatherMaterials
-        // 2. swabArea
-        // 3. putGlovesOn
-        // 4. applyTourniquet
-        // 5. findVein
-        // 6. insertNeedle
+        // 0. gatherMaterials
+        // 1. swabArea
+        // 2. putGlovesOn
+        // 3. applyTourniquet
+        // 4. findVein
+        // 5. insertNeedle
+        // 6. drawBlood
         // 7. removeNeedle & applyGauze
         GatherMaterials gatherMaterials = new GatherMaterials(instructions, tourniquet, veinScanner, gauze, needle, tube);
         PutGlovesOn putGlovesOn = new PutGlovesOn(instructions, gloveBox);
         ApplyTourniquet applyTourniquet = new ApplyTourniquet(instructions, tourniquet);
         FindVein findVein = new FindVein(instructions, veinScanner);
-        InsertNeedle insertNeedle = new InsertNeedle(instructions, needle);
+        InsertNeedle insertNeedle = new InsertNeedle(instructions, needle, veins);
+        DrawBlood drawBlood = new DrawBlood(instructions, needle, tube);
 
         goals = new List<Goal>();
         goals.Add(gatherMaterials);
@@ -46,8 +49,9 @@ public class GameController : MonoBehaviour
         goals.Add(applyTourniquet);
         goals.Add(findVein);
         goals.Add(insertNeedle);
+        goals.Add(drawBlood);
 
-        currentGoalIdx = 1;
+        currentGoalIdx = 3;
         currentGoal = goals[currentGoalIdx];
         isCompleting = false;
         currentGoal.Activate();
@@ -251,6 +255,7 @@ public class FindVein: Goal
     private GameObject veinScanner;
     private VeinScannerController veinScannerController;
     private GameObject pointOfInterest;
+    private float collisionTimeLimit = 3f;
 
     public FindVein(GameObject _instructions, GameObject _veinScanner)
     {
@@ -267,19 +272,25 @@ public class FindVein: Goal
 
     public override void Activate()
     {
-        instructionsText.text = "Grab the vein scanner and\nfind the correct vein.\nKeep the vein in the screen\nfor at least 5 second\nto complete the task";
+        instructionsText.text = String.Format("Grab the vein scanner and\nfind the correct vein.\nKeep the vein in the screen\nfor at least {0} second\nto complete the task", collisionTimeLimit);
         pointOfInterest.SetActive(true);
     }
 
     public override void Continue()
     {
-        instructionsText.text = "Grab the vein scanner and\nfind the correct vein.\nKeep the vein in the screen\nfor at least 5 second\nto complete the task";
-        pointOfInterest.SetActive(true);
+        if (veinScannerController.screenController.collisionWithVein)
+        {
+            instructionsText.text = string.Format("Time remaining: {0:F2}", collisionTimeLimit - veinScannerController.collisionTime);
+        }
+        else
+        {
+            instructionsText.text = String.Format("Grab the vein scanner and\nfind the correct vein.\nKeep the vein in the screen\nfor at least {0} second\nto complete the task", collisionTimeLimit);
+        }
     }
 
     public override bool IsAchieved()
     {
-        return veinScannerController.foundVein;
+        return veinScannerController.collisionTime >= collisionTimeLimit;
     }
 
     public override void Complete()
@@ -294,37 +305,138 @@ public class InsertNeedle: Goal
     private TextMesh instructionsText;
 
     private GameObject needle;
-    private GameObject pointOfInterest;
+    private NeedleController needleController;
+    private GameObject targetVein;
+    private GameObject targetPath;
+    private bool lastNeedleClicked = false;
+    private bool isNeedleReleased = false;
 
-    public InsertNeedle(GameObject _instructions, GameObject _needle)
+    private float tryAgainMessageTime;
+
+    public InsertNeedle(GameObject _instructions, GameObject _needle, GameObject _veins)
     {
         instructions = _instructions;
         instructionsText = instructions.GetComponent<TextMesh>();
 
         needle = _needle;
+        needleController = needle.transform.GetChild(0).GetComponent<NeedleController>();
 
-        pointOfInterest = _needle.transform.GetChild(1).gameObject;
-        pointOfInterest.SetActive(false);
+        targetVein = _veins.transform.GetChild(0).gameObject;
+        targetPath = _veins.transform.GetChild(1).gameObject;
+        targetVein.SetActive(false);
+        targetPath.SetActive(false);
     }
+
     public override void Activate()
     {
-        instructionsText.text = "Now insert the needle in the vein";
-        pointOfInterest.SetActive(true);
+        instructionsText.text = "Now insert the needle in the vein.\nClick on the needle to grab it and\nfollow the guide to place it\ninto the vein.\nRelease the button when done.";
+        targetVein.SetActive(true);
+        targetPath.SetActive(true);
+        tryAgainMessageTime = 0f;
     }
 
     public override void Continue()
     {
-        instructionsText.text = "Now insert the needle in the vein";
-        pointOfInterest.SetActive(true);
+        if (!isNeedleReleased && !needleController.isClicked && lastNeedleClicked)
+        {
+            isNeedleReleased = true;
+        }
+        lastNeedleClicked = needleController.isClicked;
+
+        if (isNeedleReleased)
+        {
+            if (!needleController.needlePointController.isInVein)
+            {
+                if (tryAgainMessageTime < 1f)
+                {
+                    instructionsText.text = "Attempt failed. Try again";
+                    tryAgainMessageTime += Time.deltaTime;
+                }
+                else
+                {
+                    tryAgainMessageTime = 0f;
+                    isNeedleReleased = false;
+                }
+            }
+        }
+        else if (needleController.isClicked)
+        {
+            if (needleController.needlePointController.isInArm)
+            {
+                float meanDistanceToVein = needleController.needlePointController.distanceToVein / needleController.needlePointController.framesInArm;
+                float meanAngleToPath = needleController.needlePointController.angleToPath / needleController.needlePointController.framesInArm;
+                instructionsText.text = String.Format("Needle in vein: {0}\nDistance to vein: {1:F4}\nAngle to path: {2:F4}", needleController.needlePointController.isInVein ? "yes" : "no", meanDistanceToVein, meanAngleToPath);
+            }
+            else
+            {
+                instructionsText.text = "Now insert the needle in the vein.\nClick on the needle to grab it and\nfollow the guide to place it\ninto the vein.\nRelease the button when done.";
+            }
+        }
+        else
+        {
+            instructionsText.text = "Now insert the needle in the vein.\nClick on the needle to grab it and\nfollow the guide to place it\ninto the vein.\nRelease the button when done.";
+        }
     }
 
     public override bool IsAchieved()
     {
-        return false;
+        return isNeedleReleased && needleController.needlePointController.isInVein;
     }
 
     public override void Complete()
     {
-        
+        targetVein.SetActive(false);
+        targetPath.SetActive(false);
+    }
+}
+
+public class DrawBlood : Goal
+{
+    private GameObject instructions;
+    private TextMesh instructionsText;
+
+    private GameObject needle;
+    private NeedleController needleController;
+
+    private GameObject tube;
+    private int numberOfFilledTubes = 0;
+
+    public DrawBlood(GameObject _instructions, GameObject _needle, GameObject _tube)
+    {
+        instructions = _instructions;
+        instructionsText = instructions.GetComponent<TextMesh>();
+
+        needle = _needle;
+        needleController = needle.transform.GetChild(0).GetComponent<NeedleController>();
+
+        tube = _tube;
+        numberOfFilledTubes = 0;
+    }
+
+    public override void Activate()
+    {
+        instructionsText.text = String.Format("Fill 3 tubes with blood\nFilled tubes: {0}", numberOfFilledTubes);
+        needleController.tubeAttachment.SetActive(true);
+    }
+
+    public override void Continue()
+    {
+        needleController.tubeAttachment.SetActive(true);
+
+        int tube1Filled = tube.transform.GetChild(0).GetComponent<TestTubeController>().isFilled ? 1 : 0;
+        int tube2Filled = tube.transform.GetChild(1).GetComponent<TestTubeController>().isFilled ? 1 : 0;
+        int tube3Filled = tube.transform.GetChild(2).GetComponent<TestTubeController>().isFilled ? 1 : 0;
+        numberOfFilledTubes = tube1Filled + tube2Filled + tube3Filled;
+        instructionsText.text = String.Format("Fill 3 tubes with blood\nFilled tubes: {0}", numberOfFilledTubes);
+    }
+
+    public override bool IsAchieved()
+    {
+        return numberOfFilledTubes >= 3;
+    }
+
+    public override void Complete()
+    {
+        needleController.tubeAttachment.SetActive(false);
     }
 }

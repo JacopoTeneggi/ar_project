@@ -43,8 +43,9 @@ public class NeedlePointController : MonoBehaviour
             isInArm = true;
         }
 
-        if (string.Equals(other.gameObject.name, targetVein.name))
+        if (string.Equals(other.gameObject.name, "TargetVein"))
         {
+            Debug.Log("in vein");
             isInVein = true;
         }
     }
@@ -60,7 +61,7 @@ public class NeedlePointController : MonoBehaviour
             angleToPath = 0f;
         }
 
-        if (string.Equals(other.gameObject.name, targetVein.name))
+        if (string.Equals(other.gameObject.tag, "TargetVein"))
         {
             isInVein = false;
         }

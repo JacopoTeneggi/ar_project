@@ -8,32 +8,38 @@ using Microsoft.MixedReality.Toolkit;
 
 public class VeinScannerController : MonoBehaviour, IMixedRealityInputHandler
 {
-    private VeinScannerScreenController screenController;
-    private float collisionTime;
-    public bool foundVein;
+    public VeinScannerScreenController screenController;
+    public float collisionTime;
 
     private IMixedRealityController controller;
-    private bool isClicked;
+    public bool isClicked;
 
     public void OnInputDown(InputEventData eventData)
     {
-        IMixedRealityInputSource inputSource = eventData.InputSource;
-        Handedness handedness = eventData.Handedness;
-
-        foreach (IMixedRealityController _controller in CoreServices.InputSystem.DetectedControllers)
+        if (!isClicked)
         {
-            if (_controller.ControllerHandedness.Equals(handedness))
+            IMixedRealityInputSource inputSource = eventData.InputSource;
+            Handedness handedness = eventData.Handedness;
+
+            foreach (IMixedRealityController _controller in CoreServices.InputSystem.DetectedControllers)
             {
-                controller = _controller;
-                isClicked = true;
+                if (_controller.ControllerHandedness.Equals(handedness))
+                {
+                    controller = _controller;
+                    isClicked = true;
+                    CoreServices.InputSystem?.RegisterHandler<IMixedRealityInputHandler>(this);
+                }
             }
         }
-
     }
 
     public void OnInputUp(InputEventData eventData)
     {
+        isClicked = false;
+        CoreServices.InputSystem?.UnregisterHandler<IMixedRealityInputHandler>(this);
 
+        transform.localPosition = new Vector3(0f, 0f, 0f);
+        transform.localEulerAngles = new Vector3(0f, 180f, 0f);
     }
 
     // Start is called before the first frame update
@@ -60,15 +66,6 @@ public class VeinScannerController : MonoBehaviour, IMixedRealityInputHandler
         if (screenController.collisionWithVein)
         {
             collisionTime += Time.deltaTime;
-            Debug.Log(collisionTime);
-            if (collisionTime >= 5)
-            {
-                foundVein = true;
-                isClicked = false;
-
-                transform.position = new Vector3(0f, 0f, 0f);
-                transform.eulerAngles = new Vector3(0f, 0f, 0f);
-            }
         }
         else
         {
