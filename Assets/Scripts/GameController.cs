@@ -72,9 +72,11 @@ public class GameController : MonoBehaviour, IMixedRealityInputHandler
         InsertNeedle insertNeedle = new InsertNeedle(instructions, needle, veins);
         DrawBlood drawBlood = new DrawBlood(instructions, needle, tube);
         ExtractNeedle extractNeedle = new ExtractNeedle(instructions, needle, gauze);
+	SwabArea swabArea = new SwabArea(instructions, gauze);
 
         goals = new List<Goal>();
         goals.Add(gatherMaterials);
+	goals.Add(swabArea);
         goals.Add(putGlovesOn);
         goals.Add(applyTourniquet);
         goals.Add(findVein);
@@ -338,6 +340,59 @@ public class FindVein: Goal
         pointOfInterest.SetActive(false);
     }
 }
+
+
+public class SwabArea: Goal
+{
+    private GameObject instructions;
+    private TextMesh instructionsText;
+
+    private GameObject gauze;
+    private GameObject pointOfInterest;
+    private int numberOfGauzeApplied;
+
+    public SwabArea(GameObject _instructions, GameObject _gauze)
+    {
+        instructions = _instructions;
+        instructionsText = instructions.GetComponent<TextMesh>();
+
+        gauze = _gauze;
+        pointOfInterest = gauze.transform.GetChild(4).gameObject;
+        numberOfGauzeApplied = 0;
+        pointOfInterest.SetActive(true);
+    }
+
+    public override void Activate()
+    {
+        instructionsText.text = "Extract the needle from the\nvein and apply gauze";
+        instructionsText.text = "Swab the insertion area with\nalcohol using gauze";
+    }
+
+    public override void Continue()
+    {
+        int gauze1Alc = gauze.transform.GetChild(0).GetComponent<GauzeController>().alcohol ? 1 : 0;
+        int gauze2Alc = gauze.transform.GetChild(1).GetComponent<GauzeController>().alcohol ? 1 : 0;
+        int gauze3Alc = gauze.transform.GetChild(2).GetComponent<GauzeController>().alcohol ? 1 : 0;
+        int gauze1Swab = gauze.transform.GetChild(0).GetComponent<GauzeController>().isSwabbed ? 1 : 0;
+        int gauze2Swab = gauze.transform.GetChild(1).GetComponent<GauzeController>().isSwabbed ? 1 : 0;
+        int gauze3Swab = gauze.transform.GetChild(2).GetComponent<GauzeController>().isSwabbed ? 1 : 0;
+        if ((gauze1Alc + gauze1Swab) == 2 || (gauze2Alc + gauze2Swab) == 2 || (gauze3Alc + gauze3Swab) == 2 )
+	{
+	    numberOfGauzeApplied = 1;
+	}
+ 
+    }
+    public override bool IsAchieved()
+    {
+        return (numberOfGauzeApplied == 1);
+    }
+
+    public override void Complete()
+    {
+	    pointOfInterest.SetActive(false);
+    }
+}
+
 
 public class InsertNeedle: Goal
 {
