@@ -1,0 +1,11 @@
+Model Information:
+* title:	Rubbing alcohol
+* source:	https://sketchfab.com/3d-models/rubbing-alcohol-583e649b240e40b09df28a679e536b76
+* author:	lindsey.wilson (https://sketchfab.com/lindsey.wilson)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Rubbing alcohol" (https://sketchfab.com/3d-models/rubbing-alcohol-583e649b240e40b09df28a679e536b76) by lindsey.wilson (https://sketchfab.com/lindsey.wilson) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
